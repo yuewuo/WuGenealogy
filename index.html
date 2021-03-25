@@ -42,6 +42,7 @@ html, body {
 	border-radius: 3px;
     padding-left: 5vw;
     margin-right: 1vw;
+    opacity: 0.7;
 }
 .search-button {
     width: 20vw;
@@ -51,9 +52,11 @@ html, body {
 	background: white;
 	border: 1px solid orange;
 	border-radius: 3px;
+    opacity: 0.7;
 }
 </style>
 
+<!-- https://github.com/hizzgdev/jsmind/blob/master/docs/zh/1.usage.md -->
 <div id="jsmind_container"></div>
 <script type="text/javascript" src="./jsmind.js"></script>
 
@@ -77,6 +80,7 @@ function build_jsmind_tree_from_data(data, path = []) {
     const name = data[0]
     const child_data = data[1]
     const id = get_next_id()
+    const new_path = path.concat([id])
     let tree = {
         id: id,
         topic: name,
@@ -84,11 +88,11 @@ function build_jsmind_tree_from_data(data, path = []) {
     if (!(name in name_mapping)) {
         name_mapping[name] = []
     }
-    name_mapping[name].push(path)
+    name_mapping[name].push(new_path)
     if (child_data.length > 0) {
         let children = []
         for (let i=0; i<child_data.length; ++i) {
-            children.push(build_jsmind_tree_from_data(child_data[i], path.concat([id])))
+            children.push(build_jsmind_tree_from_data(child_data[i], new_path))
         }
         tree["children"] = children
     }
@@ -136,14 +140,20 @@ function show_person() {
         current_showing_all = false
     }
     paths = name_mapping[name]
+    let last_node_id = null
     for (let i in paths) {
         const path = paths[i]
         for (let j in path) {
             const id = path[j]
             // console.log(id)
             jm.expand_node(id)
+            last_node_id = id
         }
     }
+    jm.select_node(last_node_id)
+    setTimeout(() => {
+        alert("找到" + paths.length + "位" + name)
+    }, 10)
 }
 
 </script>
