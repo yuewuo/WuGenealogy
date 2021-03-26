@@ -2784,7 +2784,9 @@
                 if (('visible' in node._data.layout) && !node._data.layout.visible) { continue; }
                 pin = this.layout.get_node_point_in(node);
                 pout = this.layout.get_node_point_out(node.parent);
-                this.graph.draw_line(pout, pin, _offset);
+                if (!node.data.nolink) {
+                    this.graph.draw_line(pout, pin, _offset);
+                }
             }
         },
     };
