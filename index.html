@@ -64,7 +64,7 @@ html, body {
 <div class="search">
     <input class="search-text" placeholder="搜索……" id="search_name">
     <button class="search-button" onclick="show_person()">展开到人</button>
-    <button class="search-button" onclick="show_all()">展开全部</button>
+    <button class="search-button" onclick="show_all()" id="toggle_show_all">收起全部</button>
 </div>
 
 <script type="text/javascript">
@@ -120,14 +120,40 @@ function load_jsmind() {
     return jsMind.show(options, mind)
 }
 var jm = load_jsmind()
+function look_at_node(node) {
+    if (!jsMind.util.is_node(node)) {
+        node = jm.get_node(node);
+        if (!node) {
+            logger.error('the node[id=' + node + '] can not be found.');
+            return;
+        }
+    }
+    // console.log(node)
+    var outer_w = jm.view.e_panel.clientWidth;
+    var outer_h = jm.view.e_panel.clientHeight;
+    if (jm.view.size.w > outer_w) {
+        var _offset = jm.view.get_view_offset();
+        jm.view.e_panel.scrollLeft = _offset.x - outer_w / 2 + node._data.layout._pout_.x;
+    }
+    if (jm.view.size.h > outer_h) {
+        jm.view.e_panel.scrollTop = (jm.view.size.h - outer_h) / 2 + node._data.layout._pout_.y;
+    }
+}
 
 var current_showing_all = true
+var toggle_show_all = document.getElementById("toggle_show_all")
 function show_none() {
     jm.collapse_all()
 }
 function show_all() {
-    current_showing_all = true
-    jm.expand_all()
+    if (current_showing_all) {
+        jm.collapse_all()
+        toggle_show_all.innerHTML = "展开全部"
+    } else {
+        jm.expand_all()
+        toggle_show_all.innerHTML = "收起全部"
+    }
+    current_showing_all = !current_showing_all
 }
 function show_person() {
     const name = document.getElementById("search_name").value
@@ -138,6 +164,7 @@ function show_person() {
     if (current_showing_all) {
         show_none()
         current_showing_all = false
+        toggle_show_all.innerHTML = "展开全部"
     }
     paths = name_mapping[name]
     let last_node_id = null
@@ -146,11 +173,15 @@ function show_person() {
         for (let j in path) {
             const id = path[j]
             // console.log(id)
-            jm.expand_node(id)
-            last_node_id = id
+            if (j < path.length - 1) {
+                jm.expand_node(id)
+            } else {
+                last_node_id = id
+            }
         }
     }
     jm.select_node(last_node_id)
+    look_at_node(last_node_id)
     setTimeout(() => {
         alert("找到" + paths.length + "位" + name)
     }, 10)
