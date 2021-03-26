@@ -160,7 +160,7 @@ jmnodes.theme-asbestos jmexpander{}
 jmnodes.theme-asbestos jmexpander:hover{}
 
 /* yue theme */                                                      /* greensea 即是主题名 */
-jmnodes.theme-yue jmnode{background-color:#95a5a6;color:#fff;}       /* 节点样式 */
+jmnodes.theme-yue jmnode{background-color:#95a5a6;color:#fff;text-align:center;}       /* 节点样式 */
 jmnodes.theme-yue jmnode:hover{background-color:#16a085;}            /* 鼠标悬停的节点样式 */
 jmnodes.theme-yue jmnode.selected{background-color:#e67e22;color:#fff;} /* 选中的节点样式 */
 jmnodes.theme-yue jmnode.root{}                                      /* 根节点样式 */
