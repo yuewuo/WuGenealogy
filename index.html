@@ -64,7 +64,7 @@ html, body {
 <div class="search">
     <input class="search-text" placeholder="搜索……" id="search_name">
     <button class="search-button" onclick="show_person()">展开到人</button>
-    <button class="search-button" onclick="show_all()" id="toggle_show_all">收起全部</button>
+    <button class="search-button" onclick="show_all()" id="toggle_show_all">展开全部</button>
 </div>
 
 <script type="text/javascript">
@@ -141,6 +141,7 @@ function load_jsmind() {
     return jsMind.show(options, mind)
 }
 var jm = load_jsmind()
+jm.collapse_all()
 function look_at_node(node) {
     if (!jsMind.util.is_node(node)) {
         node = jm.get_node(node);
@@ -161,7 +162,7 @@ function look_at_node(node) {
     }
 }
 
-var current_showing_all = true
+var current_showing_all = false
 var toggle_show_all = document.getElementById("toggle_show_all")
 function show_none() {
     jm.collapse_all()
