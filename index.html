@@ -134,6 +134,9 @@ function load_jsmind() {
         container: 'jsmind_container',
         editable: false,
         theme: 'yue',
+        view: {
+            engine: "svg",
+        },
         layout: {
             pspace: 20,
         },
@@ -170,6 +173,7 @@ function show_none() {
 function show_all() {
     if (current_showing_all) {
         jm.collapse_all()
+        look_at_node("id_1")  // make sure root is in the screen
         toggle_show_all.innerHTML = "展开全部"
     } else {
         jm.expand_all()
