@@ -2249,7 +2249,9 @@
             line.setAttribute('fill', 'transparent');
             this.lines.push(line);
             this.e_svg.appendChild(line);
-            this._bezier_to(line, pin.x + offset.x, pin.y + offset.y, pout.x + offset.x, pout.y + offset.y);
+            // this._bezier_to(line, pin.x + offset.x, pin.y + offset.y, pout.x + offset.x, pout.y + offset.y);
+            // this._line_to(line, pin.x + offset.x, pin.y + offset.y, pout.x + offset.x, pout.y + offset.y);
+            this._broken_line_to(line, pin.x + offset.x, pin.y + offset.y, pout.x + offset.x, pout.y + offset.y);
         },
 
         copy_to: function (dest_canvas_ctx, callback) {
@@ -2267,7 +2269,12 @@
 
         _line_to: function (path, x1, y1, x2, y2) {
             path.setAttribute('d', 'M ' + x1 + ' ' + y1 + ' L ' + x2 + ' ' + y2);
-        }
+        },
+
+        _broken_line_to: function (path, x1, y1, x2, y2) {
+            const xc = (x1 + x2) / 2
+            path.setAttribute('d', 'M ' + x1 + ' ' + y1 + ' L ' + xc + ' ' + y1 + ' L ' + xc + ' ' + y2 + ' L ' + x2 + ' ' + y2);
+        },
     };
 
     // view provider
