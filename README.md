@@ -24,3 +24,13 @@ genealogy of Wu's family
 
 吴越（yue.wu@yale.edu）
 
+## 维护指南
+
+在 `./previous` 文件夹内下载最新的excel表格，修改后保存为新的文件，然后导出为csv格式（UTF-8编码），保存在本项目根目录的 `data.csv` 文件（覆盖旧文件）。
+
+运行 `python3 ./parse_data.py` 解析csv文件（`./data.csv`）生成树型数据 `./data.json`。
+
+打开 `./data.json` ，复制所有内容，打开 `./index.html` ，找到 `origin_data` 变量，并替换其后的JSON数据。
+
+本地打开 `./index.html` ，检查更改是否生效，是否有明显问题。
+
