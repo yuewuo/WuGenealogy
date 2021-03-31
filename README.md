@@ -14,7 +14,7 @@ genealogy of Wu's family
 
 对于微信分享，可以使用如下图片：
 
-<img style="width: 50%;" src="./qrcode.png"/>
+<a href="https://genealogy.wuyue98.cn"><img style="width: 50%;" src="./qrcode.png"/></a>
 
 ## 可持续性
 
@@ -23,3 +23,4 @@ genealogy of Wu's family
 ## 维护人员
 
 吴越（yue.wu@yale.edu）
+
