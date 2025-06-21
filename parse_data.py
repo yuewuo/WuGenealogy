@@ -51,7 +51,7 @@ def parse_file(input_csv, output_json):
         content = ""
         for line in f:
             line = line.rstrip("\r\n ")
-            if line.startswith("const origin_data = "):
+            if (line.strip("\r\n ")).startswith("const origin_data = "):
                 assert not found_const_origin_data, "duplicate const origin_data"
                 found_const_origin_data = True
                 content += (
@@ -64,6 +64,10 @@ def parse_file(input_csv, output_json):
     if found_const_origin_data:
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(content)
+        print("index.html updated")
+    else:
+        print("index.html not updated")
+    print("done")
 
 
 if __name__ == "__main__":
